@@ -50,6 +50,20 @@ mkdir <project-folder> ; cd <project-folder> ; gradle init
 This will give various options. Choose as per your requirement 
 
 ## Notes
-he `build.gradle` in root project is normally used for having shared dependencies and configuration .
+The `build.gradle` in root project is normally used for having shared dependencies and configuration .
 
-There are other modern ways so you may not find the build.gradle in the root project 
+There are other modern ways so, you may not find the build.gradle in the root project 
+
+## Some important Gradle CLI commands
+```bash
+./gradlew help
+./gradlew tasks // list all the tasks available
+./gradlew help --task <task>
+./gradlew :<project>:<task>
+./gradlew clean // remove all build files
+./gradlew build // build the application
+./gradlew run // run a java application
+./gradlew bootRun // run a spring boot application 
+```
+
+
