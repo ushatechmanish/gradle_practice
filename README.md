@@ -207,3 +207,10 @@ Tasks have Inputs-> Action -> Output
 - Input can be files , configuration properties or output of another task 
 - Action is what the task does 
 - Outputs are files produced by Action (for example files in build directory)
+
+## How to apply new Plugin 
+ - search for Gradle plugin page on google search 
+ - search for a plugin 
+ - Identify the latest plugin  and click 
+ - The plugin page will show the information to use the plugin and will list the tasks and configuration for the plugin 
+
