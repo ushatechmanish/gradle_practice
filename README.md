@@ -184,7 +184,8 @@ BUILD SUCCESSFUL in 2s
 3 actionable tasks: 2 executed, 1 up-to-date
 
 ```
-   - As you can notice  :app:compileTestJava and :app:testClasses and :app:test were executed and not picked from cache
+   - As you can notice  :app:compileTestJava and :app:testClasses and :app:test were executed and not picked from cache, So these are executed successfully . This is a performance feature known as incremental builds .
+   - For other outcomes use search keyword `outcomes` in documentation
    - running only `./gradlew test` will run all test tasks in **rootProject and subprojects** 
    - But some tasks run only for root projects. So, it is a good habit to run specific tasks to execute the tasks faster 
    - The properties can be defined in following places in order of precedence
@@ -193,3 +194,16 @@ BUILD SUCCESSFUL in 2s
       - `gradle.properties` in  project's directory , then its parent project's directory up to build's root directory 
       - `gradle.properties` in Gradle Installation Directory
    - The search keyword for the above properties in documentation is 'gradle properties'
+
+## Command Line Options 
+
+1. --console=plain or --console=verbose  will show dependent tasks executed 
+2. -q hides the log messages 
+3. --dry-run will show what tasks will happen without executing 
+
+## Task Concepts in gradle
+
+Tasks have Inputs-> Action -> Output 
+- Input can be files , configuration properties or output of another task 
+- Action is what the task does 
+- Outputs are files produced by Action (for example files in build directory)
