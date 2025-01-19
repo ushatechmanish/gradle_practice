@@ -214,3 +214,246 @@ Tasks have Inputs-> Action -> Output
  - Identify the latest plugin  and click 
  - The plugin page will show the information to use the plugin and will list the tasks and configuration for the plugin 
 
+## Dependency Management 
+
+Dependency can be a module(downloaded from repositories) / common library modules / local File(not recommended) 
+
+Default repository is mavenCentral which is [https://mvnrepository.com/]()
+
+A dependency like  `implementation com.google.guava:guava 30.1.1-jre` consists of 3 parts
+- implementation is the configuration . It will be used internally 
+- ID com.google.guava:guava . Here  com.google.guava is the group name and guava is library name
+- Version 30.1.1-jre
+
+Grouping the dependency based on the requirement like compile , test , runtime help make the task execute faster 
+
+ Run `./gradlew :app:dependencies` or `./gradlew :app:dep` to see more detail for dependencies in build.gradle
+```groovy
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation libs.junit.jupiter
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // This dependency is used by the application.
+    implementation libs.guava
+}
+```
+as following 
+```text
+> Task :app:dependencies
+
+------------------------------------------------------------
+Project ':app'
+------------------------------------------------------------
+
+annotationProcessor - Annotation processors and their dependencies for source set 'main'.
+No dependencies
+
+compileClasspath - Compile classpath for source set 'main'.
+\--- com.google.guava:guava:33.0.0-jre
+     +--- com.google.guava:failureaccess:1.0.2
+     +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+     +--- com.google.code.findbugs:jsr305:3.0.2
+     +--- org.checkerframework:checker-qual:3.41.0
+     +--- com.google.errorprone:error_prone_annotations:2.23.0
+     \--- com.google.j2objc:j2objc-annotations:2.8
+
+compileOnly - Compile-only dependencies for the 'main' feature. (n)
+No dependencies
+
+default - Configuration for default artifacts. (n)
+No dependencies
+
+implementation - Implementation dependencies for the 'main' feature. (n)
+\--- com.google.guava:guava:33.0.0-jre (n)
+
+mainSourceElements - List of source directories contained in the Main SourceSet. (n)
+No dependencies
+
+runtimeClasspath - Runtime classpath of source set 'main'.
+\--- com.google.guava:guava:33.0.0-jre
+     +--- com.google.guava:failureaccess:1.0.2
+     +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+     +--- com.google.code.findbugs:jsr305:3.0.2
+     +--- org.checkerframework:checker-qual:3.41.0
+     \--- com.google.errorprone:error_prone_annotations:2.23.0
+
+runtimeElements - Runtime elements for the 'main' feature. (n)
+No dependencies
+
+runtimeOnly - Runtime-only dependencies for the 'main' feature. (n)
+No dependencies
+
+testAnnotationProcessor - Annotation processors and their dependencies for source set 'test'.
+No dependencies
+
+testCompileClasspath - Compile classpath for source set 'test'.
++--- com.google.guava:guava:33.0.0-jre
+|    +--- com.google.guava:failureaccess:1.0.2
+|    +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+|    +--- com.google.code.findbugs:jsr305:3.0.2
+|    +--- org.checkerframework:checker-qual:3.41.0
+|    +--- com.google.errorprone:error_prone_annotations:2.23.0
+|    \--- com.google.j2objc:j2objc-annotations:2.8
+\--- org.junit.jupiter:junit-jupiter:5.10.2
+     +--- org.junit:junit-bom:5.10.2
+     |    +--- org.junit.jupiter:junit-jupiter:5.10.2 (c)
+     |    +--- org.junit.jupiter:junit-jupiter-api:5.10.2 (c)
+     |    +--- org.junit.jupiter:junit-jupiter-params:5.10.2 (c)
+     |    \--- org.junit.platform:junit-platform-commons:1.10.2 (c)
+     +--- org.junit.jupiter:junit-jupiter-api:5.10.2
+     |    +--- org.junit:junit-bom:5.10.2 (*)
+     |    +--- org.opentest4j:opentest4j:1.3.0
+     |    +--- org.junit.platform:junit-platform-commons:1.10.2
+     |    |    +--- org.junit:junit-bom:5.10.2 (*)
+     |    |    \--- org.apiguardian:apiguardian-api:1.1.2
+     |    \--- org.apiguardian:apiguardian-api:1.1.2
+     \--- org.junit.jupiter:junit-jupiter-params:5.10.2
+          +--- org.junit:junit-bom:5.10.2 (*)
+          +--- org.junit.jupiter:junit-jupiter-api:5.10.2 (*)
+          \--- org.apiguardian:apiguardian-api:1.1.2
+
+testCompileOnly - Compile only dependencies for source set 'test'. (n)
+No dependencies
+
+testImplementation - Implementation only dependencies for source set 'test'. (n)
+\--- org.junit.jupiter:junit-jupiter:5.10.2 (n)
+
+testRuntimeClasspath - Runtime classpath of source set 'test'.
++--- com.google.guava:guava:33.0.0-jre
+|    +--- com.google.guava:failureaccess:1.0.2
+|    +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+|    +--- com.google.code.findbugs:jsr305:3.0.2
+|    +--- org.checkerframework:checker-qual:3.41.0
+|    \--- com.google.errorprone:error_prone_annotations:2.23.0
++--- org.junit.jupiter:junit-jupiter:5.10.2
+|    +--- org.junit:junit-bom:5.10.2
+|    |    +--- org.junit.jupiter:junit-jupiter:5.10.2 (c)
+|    |    +--- org.junit.jupiter:junit-jupiter-api:5.10.2 (c)
+|    |    +--- org.junit.jupiter:junit-jupiter-engine:5.10.2 (c)
+|    |    +--- org.junit.jupiter:junit-jupiter-params:5.10.2 (c)
+|    |    +--- org.junit.platform:junit-platform-launcher:1.10.2 (c)
+|    |    +--- org.junit.platform:junit-platform-commons:1.10.2 (c)
+|    |    \--- org.junit.platform:junit-platform-engine:1.10.2 (c)
+|    +--- org.junit.jupiter:junit-jupiter-api:5.10.2
+|    |    +--- org.junit:junit-bom:5.10.2 (*)
+|    |    +--- org.opentest4j:opentest4j:1.3.0
+|    |    \--- org.junit.platform:junit-platform-commons:1.10.2
+|    |         \--- org.junit:junit-bom:5.10.2 (*)
+|    +--- org.junit.jupiter:junit-jupiter-params:5.10.2
+|    |    +--- org.junit:junit-bom:5.10.2 (*)
+|    |    \--- org.junit.jupiter:junit-jupiter-api:5.10.2 (*)
+|    \--- org.junit.jupiter:junit-jupiter-engine:5.10.2
+|         +--- org.junit:junit-bom:5.10.2 (*)
+|         +--- org.junit.platform:junit-platform-engine:1.10.2
+|         |    +--- org.junit:junit-bom:5.10.2 (*)
+|         |    +--- org.opentest4j:opentest4j:1.3.0
+|         |    \--- org.junit.platform:junit-platform-commons:1.10.2 (*)
+|         \--- org.junit.jupiter:junit-jupiter-api:5.10.2 (*)
+\--- org.junit.platform:junit-platform-launcher -> 1.10.2
+     +--- org.junit:junit-bom:5.10.2 (*)
+     \--- org.junit.platform:junit-platform-engine:1.10.2 (*)
+
+testRuntimeOnly - Runtime only dependencies for source set 'test'. (n)
+\--- org.junit.platform:junit-platform-launcher (n)
+
+(c) - A dependency constraint, not a dependency. The dependency affected by the constraint occurs elsewhere in the tree.
+(*) - Indicates repeated occurrences of a transitive dependency subtree. Gradle expands transitive dependency subtrees only once per project; repeat occurrences only display the root of the subtree, followed by this annotation.
+
+(n) - A dependency or dependency configuration that cannot be resolved.
+
+A web-based, searchable dependency report is available by adding the --scan option.
+
+BUILD SUCCESSFUL in 186ms
+1 actionable task: 1 executed
+```
+
+You can see some of the dependencies are not mentioned in the build.gradle but still found in the results .
+
+These are transitive dependencies which can be found looking at pom.xml file for the dependency 
+
+## Two type of dependencies 
+1. Bucket dependency (explicitly mentioned in the build.gradle)
+2. Resolved Dependency (includes the direct and transitive dependencies )
+   - Many tasks use resolved dependency configuration as they need all dependencies 
+
+Also,  it is important to read the legend at the bottom of the output
+
+```plaintext
+(c) - A dependency constraint, not a dependency. The dependency affected by the constraint occurs elsewhere in the tree.
+(*) - Indicates repeated occurrences of a transitive dependency subtree. Gradle expands transitive dependency subtrees only once per project; repeat occurrences only display the root of the subtree, followed by this annotation.
+(n) - A dependency or dependency configuration that cannot be resolved.
+```
+For example
+- `testRuntimeOnly - Runtime only dependencies for source set 'test'. (n)` has n means it is a bucket dependency and is not resolved 
+- `testRuntimeClasspath - Runtime classpath of source set 'test'.` does not have n next to it , this means it is a resolved dependency
+
+Important:  the dependency task when run on root project does not run on the subprojects, so you always have to mention explicitly the subproject you want details of the dependencies . Also the dependencies task in gradle plugin for Intellij , it can be found under help sub heading 
+
+## Most common dependency configurations
+1. testImplementation - required to compile and run tests , e.g.  junit
+2. runtimeOnly - required only for runtime . e.g. logging
+3. implementation - only used internally
+4. api - exposed to other api's as the current project will work as library and not application
+
+
+In earlier version there was only compile dependency configuration.
+
+Later this was divided in 2 - api and implementation  and compile dependency configuration was removed . 
+
+It is important to understand that the api configuration is to be used when the you want it in compileTime and runTime both.
+
+If the transitive dependencies are not used and they are marked as implementation , it will not be included in the root project compileTime configurations 
+
+`id("com.autonomousapps.dependency-analysis") version "2.7.0"`   plugin can be applied to **root project** to find misconfigured or misused dependencies and will point out the wrong api or implementation configuration for a given dependency
+
+You can read more on [https://plugins.gradle.org/plugin/com.autonomousapps.dependency-analysis]() on how to use this plugin and related tasks . 
+
+## Mentioning the version of a dependency 
+
+1. 2.3 -  2.3 or later 
+2. 2.3!! - strictly 2.3 
+3. 2.+ - latest 2.+ version (this is performance expensive )
+4. 2.7-SNAPSHOT - snapshot version
+
+
+Dependency version conflict resolution
+The latest versions is picked always . 
+
+If the latest version has some functionality removed , we have to explicitly mention the version to be used . 
+
+## Mentioning the version in a centralized location 
+
+libs.versions.toml should be used to mention the version 
+
+```plaintext
+[versions]
+guava = "33.0.0-jre"
+junit-jupiter = "5.10.2"
+
+[libraries]
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+```
+ versions and libraries are mentioned in this file 
+`implementation libs.guava` This is how we can use the library in build.gradle
+`testImplementation libs.junit.jupiter` here junit-jupiter has been used as junit.jupiter . So, the - are converted to . 
+
+In libraries 
+`guava = "com.google.guava:guava:33.0.0-jre"` is also supported 
+
+## Using a group of dependencies 
+
+Create [bundles] in the libs.version.toml 
+```plaintext
+[bundles]
+guava-junit = ["guava","junit-jupiter"]
+```
+and use following in build.gradle
+
+```groovy
+    implementation libs.bundles.guava.junit
+```
+and remove the dependency in the bundle which are mentioned separately
+
